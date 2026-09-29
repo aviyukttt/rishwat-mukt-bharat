@@ -341,3 +341,47 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 .startup-document-wrap { transform-style: preserve-3d; }
 .startup-document { backface-visibility: hidden; }
 .startup-intro.is-leaving { pointer-events: none; }
+/* Formal institutional visual system */
+:root {
+  --navy: #17324d;
+  --navy-2: #0d2235;
+  --navy-3: #2a4a68;
+  --saffron: #9a5b13;
+  --green: #17633a;
+  --paper: #f4f0e8;
+  --paper-2: #ebe5d9;
+  --card: #fffdf8;
+  --ink: #20201d;
+  --muted: #5d5b55;
+  --line: #c9c1b3;
+  --shadow: 0 8px 22px rgba(34, 39, 43, .08);
+  font-family: "Times New Roman", Times, serif;
+}
+body { font-family: "Times New Roman", Times, serif; font-size: 17px; line-height: 1.58; }
+button, input, select, textarea { font-family: "Times New Roman", Times, serif; }
+h1, h2, h3, h4, h5 { font-family: "Times New Roman", Times, serif; font-weight: 700; }
+.brand-lockup strong, .hero-stat b, .hero-stat-row b { font-family: "Times New Roman", Times, serif; }
+.brand-mark { border-radius: 2px; }
+.brand-lockup strong { letter-spacing: .01em; }
+.main-nav { background: var(--navy-2); }
+.nav-inner a { font-weight: 700; letter-spacing: .035em; text-transform: uppercase; }
+.hero-section { background: linear-gradient(120deg, #0d2235 0%, #17324d 68%, #234563 100%); }
+.hero-copy h1 { letter-spacing: 0; }
+.section-heading h2 { letter-spacing: 0; }
+.btn { border-radius: 2px; letter-spacing: .015em; }
+.btn-primary { background: #8c4f0c; }
+.btn-primary:hover:not(:disabled) { background: #6f3d08; }
+.btn-secondary { background: var(--navy); }
+.form-card, .aside-card, .track-card, .track-result, .agency-card, .help-card, .officer-card, .officer-result, .info-card { border-radius: 2px; box-shadow: var(--shadow); }
+.field input, .field select, .field textarea, .inline-field input { border-radius: 0; background: #fffdf8; }
+.hero-panel { border-radius: 2px; background: rgba(255,255,255,.06); }
+.aside-icon, .officer-icon, .info-icon, .success-icon { border-radius: 2px; }
+.ai-badge, .tag { border-radius: 2px; }
+.recommendation { border-radius: 2px; }
+.next-steps li span, .stepper button span { border-radius: 2px; }
+.education-document, .education-table, .education-table td, .education-table th { font-family: "Times New Roman", Times, serif; }
+.education-card { border-radius: 2px; }
+.education-accordion details { border-radius: 0; }
+.education-accordion summary { font-family: "Times New Roman", Times, serif; }
+.startup-card { border-radius: 2px; background: rgba(18, 34, 52, .92); }
+.startup-button { border-radius: 2px; background: #8c4f0c; font-family: "Times New Roman", Times, serif; }
