@@ -5,6 +5,11 @@ const catalogs = UI_TRANSLATIONS as unknown as Record<string, Record<string, str
 const english = catalogs.en;
 const englishToKey = new Map(Object.entries(english).map(([key, value]) => [value, key]));
 englishToKey.set("See officer above", "officer");
+englishToKey.set("Back to portal", "home");
+englishToKey.set("Learn before you act", "infoEyebrow");
+englishToKey.set("Reference document", "infoKicker");
+englishToKey.set("Education: Anti-Corruption Laws in India", "infoTitle");
+englishToKey.set("Anti-Corruption Laws in India: A Comprehensive Overview", "infoTitle");
 const translatedToEnglish = new Map<string, string>();
 for (const catalog of Object.values(catalogs)) {
   for (const [key, value] of Object.entries(catalog)) {

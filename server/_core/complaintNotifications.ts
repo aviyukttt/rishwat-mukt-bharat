@@ -30,6 +30,31 @@ async function sendTextbelt(phone: string, message: string) {
   }
 }
 
+async function sendTextBee(phone: string, message: string) {
+  const apiKey = process.env.TEXTBEE_API_KEY;
+  if (!apiKey) return false;
+  const response = await fetch("https://api.textbee.dev/api/v1/gateway/send-sms", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-api-key": apiKey },
+    body: JSON.stringify({
+      recipients: [normalizedPhone(phone)],
+      message,
+      ...(process.env.TEXTBEE_DEVICE_ID ? { deviceId: process.env.TEXTBEE_DEVICE_ID } : {}),
+    }),
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok || payload?.data?.success === false) {
+    throw new Error(typeof payload?.message === "string" ? payload.message : "TextBee delivery failed");
+  }
+  return true;
+}
+
+export async function sendSmsMessage(phone: string, message: string) {
+  if (process.env.TEXTBEE_API_KEY) return sendTextBee(phone, message);
+  await sendTextbelt(phone, message);
+  return true;
+}
+
 async function sendSmtpEmail(to: string, input: ComplaintNotificationInput) {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
@@ -60,7 +85,7 @@ async function sendSmtpEmail(to: string, input: ComplaintNotificationInput) {
 export async function sendComplaintNotifications(input: ComplaintNotificationInput) {
   const tasks: Promise<unknown>[] = [];
   if (input.phone) {
-    tasks.push(sendTextbelt(input.phone, `Rishwat Mukt Bharat: complaint ${input.trackingId} received and routed toward ${input.agencyName}. Keep this tracking ID safe.`));
+    tasks.push(sendSmsMessage(input.phone, `Rishwat Mukt Bharat: complaint ${input.trackingId} received and routed toward ${input.agencyName}. Keep this tracking ID safe.`));
   }
   if (input.email) tasks.push(sendSmtpEmail(input.email, input));
   const results = await Promise.allSettled(tasks);

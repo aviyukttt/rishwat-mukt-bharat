@@ -283,3 +283,18 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+.education-page .brand-header { background: var(--navy); }
+.education-page .brand-header .btn { color: #fff; border-color: rgba(255,255,255,.55); }
+.education-hero { padding: 58px 0 64px; }
+.education-hero .hero-copy { max-width: 900px; }
+.education-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 18px; align-items: start; }
+.education-card { min-width: 0; padding: 28px; border: 1px solid var(--line); background: var(--paper); box-shadow: var(--shadow); }
+.education-card-heading { display: flex; gap: 13px; align-items: flex-start; color: var(--saffron); }
+.education-card-heading h2 { margin: 2px 0 0; color: var(--navy); }
+:root[data-theme="dark"] .education-card-heading h2 { color: #fff; }
+.education-note { margin: 18px 0 22px; padding: 13px 15px; border-left: 3px solid var(--saffron); color: var(--muted); background: var(--paper-2); font-size: 13px; }
+.education-document { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); font-family: "Noto Sans", system-ui, sans-serif; font-size: 14px; line-height: 1.68; }
+:root[data-theme="dark"] .education-document { color: #e8edf8; }
+.education-aside { display: grid; grid-template-columns: 1fr; }
+@media (max-width: 900px) { .education-layout { grid-template-columns: 1fr; } }

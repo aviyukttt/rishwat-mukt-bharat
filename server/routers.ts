@@ -8,7 +8,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { ENV } from "./_core/env";
-import { sendComplaintNotifications } from "./_core/complaintNotifications";
+import { sendComplaintNotifications, sendSmsMessage } from "./_core/complaintNotifications";
 
 const OTP_TTL_MS = 2 * 60 * 1000;
 const MAX_OTP_ATTEMPTS = 5;
@@ -143,24 +143,7 @@ async function askManagedModel(problem: string, stateOrUt?: string) {
 }
 
 async function deliverSms(phone: string, code: string) {
-  // Textbelt's public `textbelt` key requires no secure credential card and is
-  // intentionally used only as a low-volume prototype gateway. A paid Textbelt
-  // key can be supplied later through TEXTBELT_KEY without changing this flow.
-  const response = await fetch("https://textbelt.com/text", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      phone: `+91${phone}`,
-      message: `Rishwat Mukt Bharat verification code: ${code}. It expires in 2 minutes.`,
-      key: process.env.TEXTBELT_KEY || "textbelt",
-    }),
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok || payload?.success !== true) {
-    const reason = typeof payload?.error === "string" ? payload.error : "The SMS gateway could not deliver the OTP.";
-    throw new Error(reason);
-  }
-  return true;
+  return sendSmsMessage(phone, `Rishwat Mukt Bharat verification code: ${code}. It expires in 2 minutes.`);
 }
 
 async function verifiedChallenge(challengeId: string, phone: string) {
