@@ -1,6 +1,7 @@
 {
   "name": "rishwatmukt",
   "version": "1.0.0",
+  "description": "Civic anti-corruption guidance portal for India with AI-assisted complaint routing, officer hierarchy guidance, multilingual education, and official destination links.",
   "type": "module",
   "license": "MIT",
   "scripts": {
