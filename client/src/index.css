@@ -385,3 +385,14 @@ h1, h2, h3, h4, h5 { font-family: "Times New Roman", Times, serif; font-weight: 
 .education-accordion summary { font-family: "Times New Roman", Times, serif; }
 .startup-card { border-radius: 2px; background: rgba(18, 34, 52, .92); }
 .startup-button { border-radius: 2px; background: #8c4f0c; font-family: "Times New Roman", Times, serif; }
+/* Premium 3D interface layer */
+.portal-shell { perspective: 1600px; }
+.hero-grid, .report-layout, .officer-grid, .info-grid, .agency-grid, .education-layout { transform-style: preserve-3d; }
+.three-d-surface { position: relative; transform-style: preserve-3d; will-change: transform; transition: box-shadow .35s ease, border-color .35s ease; }
+.three-d-surface::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; box-shadow: 0 18px 32px rgba(7, 23, 38, .1); opacity: 0; transition: opacity .35s ease; }
+.three-d-surface:hover { border-color: rgba(154,91,19,.52); box-shadow: 0 18px 34px rgba(7, 23, 38, .16), 0 0 0 1px rgba(255,255,255,.55) inset; }
+.three-d-surface:hover::after { opacity: 1; }
+.hero-panel { transform-style: preserve-3d; box-shadow: 0 22px 58px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.2); }
+.hero-panel-top, .hero-stat, .hero-stat-row, .hero-panel-note { transform: translateZ(12px); }
+.agency-card h3, .info-card h3, .officer-card h3, .aside-card h3, .education-card-heading { transform: translateZ(8px); }
+@media (prefers-reduced-motion: reduce) { .three-d-surface { transform: none !important; transition: none; } .three-d-surface::after { display: none; } }

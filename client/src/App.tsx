@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Education from "./pages/Education";
 import StartupIntro from "./components/StartupIntro";
+import ThreeDLayer from "./components/ThreeDLayer";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -37,6 +38,7 @@ function App() {
           <Toaster />
           <StartupIntro />
           <Router />
+          <ThreeDLayer />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
