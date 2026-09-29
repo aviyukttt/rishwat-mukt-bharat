@@ -308,3 +308,10 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 .education-accordion details[open] summary { border-bottom: 1px solid var(--line); }
 .education-accordion .education-document { padding: 18px; }
 :root[data-theme="dark"] .education-accordion summary { color: #fff; }
+.education-table-wrap { overflow-x: auto; padding: 18px; }
+.education-table { width: 100%; min-width: 620px; border-collapse: collapse; color: var(--ink); font-size: 13px; line-height: 1.45; }
+.education-table th { padding: 11px 12px; color: #fff; background: var(--navy); text-align: left; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.education-table td { padding: 12px; border: 1px solid var(--line); vertical-align: top; background: var(--paper); }
+.education-table tbody tr:nth-child(even) td { background: var(--paper-2); }
+:root[data-theme="dark"] .education-table td { color: #e8edf8; }
+.officer-ai-button { margin-top: 18px; }

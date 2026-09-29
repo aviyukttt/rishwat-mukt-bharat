@@ -173,6 +173,17 @@ export const appRouter = router({
         return deterministicRecommendation(input.problem, input.stateOrUt);
       }
     }),
+    officerAbove: publicProcedure.input(z.object({ designation: z.string().min(1), department: z.string().optional(), stateOrUt: z.string().optional(), facts: z.string().optional() })).mutation(async ({ input }) => {
+      const fallback = Object.entries({ clerk: "Section Officer / Office Superintendent", assistant: "Section Officer", inspector: "Deputy Superintendent of Police", "sub-inspector": "Inspector", constable: "Head Constable", tehsildar: "Sub-Divisional Magistrate", patwari: "Naib Tehsildar", engineer: "Executive Engineer", "junior engineer": "Assistant Engineer", officer: "Department Head / Controlling Officer", agent: "Supervising Officer of the concerned department" }).find(([key]) => input.designation.toLowerCase().includes(key))?.[1] ?? "Immediate supervisory officer / controlling authority";
+      if (!ENV.forgeApiUrl || !ENV.forgeApiKey) return { designation: input.designation, above: fallback, confidence: "guidance" as const, explanation: "The suggested rank is based on the designation supplied. Verify the department's published hierarchy." };
+      try {
+        const response = await fetch(`${ENV.forgeApiUrl.replace(/\/+$/, "")}/v1/chat/completions`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${ENV.forgeApiKey}` }, body: JSON.stringify({ model: "gpt-5-mini", temperature: 0, messages: [{ role: "system", content: "You identify the immediate official rank directly above a named Indian government official. Return JSON only: {\"above\":\"...\",\"explanation\":\"...\"}. Use the supplied department/state/facts, never invent a person's name, keep the answer a rank or controlling authority, and clearly say when hierarchy varies." }, { role: "user", content: `Designation: ${input.designation}\nDepartment: ${input.department || "not provided"}\nState/UT: ${input.stateOrUt || "not provided"}\nComplaint facts: ${redactSensitive(input.facts || "not provided")}` }] }) });
+        const payload = await response.json().catch(() => ({}));
+        const parsed = parseModelJson(payload?.choices?.[0]?.message?.content || "{}") as { above?: unknown; explanation?: unknown };
+        if (typeof parsed?.above === "string" && parsed.above.trim()) return { designation: input.designation, above: parsed.above.trim(), confidence: "ai" as const, explanation: typeof parsed.explanation === "string" ? parsed.explanation : "Verify the hierarchy on the department's official website." };
+      } catch (error) { console.warn("[Assistant] Officer hierarchy fallback:", error instanceof Error ? error.message : error); }
+      return { designation: input.designation, above: fallback, confidence: "guidance" as const, explanation: "The suggested rank is based on the designation supplied. Verify the department's published hierarchy." };
+    }),
   }),
   phone: router({
     sendOtp: publicProcedure.input(z.object({ phone: phoneSchema })).mutation(async ({ input }) => {

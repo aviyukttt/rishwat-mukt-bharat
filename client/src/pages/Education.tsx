@@ -14,6 +14,21 @@ const educationSections = EDUCATION_DOCUMENT
     return { title, body: lines.join("\n").trim() };
   });
 
+const provisions = [
+  ["PCA 1988", "Public servants", "Criminal prosecution", "Special Courts"],
+  ["Lokpal & Lokayuktas Act 2013", "High-ranking officials, ministers, MPs", "Ombudsman inquiry", "Lokpal / Lokayukta"],
+  ["Whistleblower Act 2014", "Any person with information of corruption", "Encourage disclosure & protect informers", "CVC, Lokayukta, ACB"],
+  ["RTI Act 2005", "Citizens", "Access government information", "RTI Appeal Commissions"],
+  ["Companies Act 2013", "Listed companies", "Corporate governance", "Company Boards & Courts"],
+];
+const penalties = [
+  ["Taking / accepting bribe (Section 7)", "Up to 7 years", "As per conviction"],
+  ["Giving bribe (Section 8A, 2018)", "Up to 7 years", "As per conviction"],
+  ["Criminal misconduct (Section 13)", "Up to 7–10 years", "As per conviction + asset confiscation"],
+  ["Commercial organization liability", "3–7 years for persons in charge", "Penalty on organization + fine on persons"],
+  ["Abetment (Section 12)", "6 months–5 years", "As per conviction"],
+];
+
 export default function Education() {
   useEffect(() => {
     translatePage(window.localStorage.getItem("rmb-language") ?? "en");
@@ -47,7 +62,7 @@ export default function Education() {
               <div className="education-accordion">
                 {educationSections.map((section, index) => <details key={`${section.title}-${index}`} open={index === 0}>
                   <summary><span>{section.title}</span><ChevronDown size={18} /></summary>
-                  <pre className="education-document">{section.body}</pre>
+                  {index === 6 ? <EducationTable headers={["Law", "Applies to", "Main function", "Forum"]} rows={provisions} /> : index === 7 ? <EducationTable headers={["Offence", "Imprisonment", "Fine"]} rows={penalties} /> : <pre className="education-document">{section.body}</pre>}
                 </details>)}
               </div>
             </article>
@@ -60,4 +75,8 @@ export default function Education() {
       </main>
     </div>
   );
+}
+
+function EducationTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+  return <div className="education-table-wrap"><table className="education-table"><thead><tr>{headers.map(header => <th key={header}>{header}</th>)}</tr></thead><tbody>{rows.map(row => <tr key={row[0]}>{row.map((cell, index) => <td key={`${row[0]}-${index}`}>{cell}</td>)}</tr>)}</tbody></table></div>;
 }
