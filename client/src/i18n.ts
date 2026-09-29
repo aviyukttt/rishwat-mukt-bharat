@@ -1,7 +1,12 @@
 import { UI_TRANSLATIONS } from "./ui-translations";
+import { UI_SUPPLEMENT } from "./ui-supplement";
 
 type LanguageCode = keyof typeof UI_TRANSLATIONS;
 const catalogs = UI_TRANSLATIONS as unknown as Record<string, Record<string, string>>;
+const supplement = UI_SUPPLEMENT as unknown as Record<string, Record<string, string>>;
+for (const [language, entries] of Object.entries(supplement)) {
+  catalogs[language] = { ...(catalogs[language] ?? {}), ...entries };
+}
 const english = catalogs.en;
 const englishToKey = new Map(Object.entries(english).map(([key, value]) => [value, key]));
 englishToKey.set("See officer above", "officer");
@@ -21,7 +26,7 @@ function shouldSkip(node: Node) {
   const parent = node.parentElement;
   if (!parent) return true;
   const tag = parent.tagName;
-  return tag === "SCRIPT" || tag === "STYLE" || tag === "SELECT" || tag === "OPTION" || parent.closest("[data-no-translate='true']") !== null;
+  return tag === "SCRIPT" || tag === "STYLE" || parent.closest("[data-no-translate='true']") !== null;
 }
 
 function translateText(value: string, language: LanguageCode) {
@@ -37,7 +42,7 @@ function translateText(value: string, language: LanguageCode) {
 
 export function translatePage(language: string) {
   if (typeof document === "undefined") return;
-  const selected = (language in UI_TRANSLATIONS ? language : "en") as LanguageCode;
+  const selected = (language in catalogs ? language : "en") as LanguageCode;
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes: Text[] = [];
   let node: Node | null;

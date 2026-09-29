@@ -299,3 +299,12 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 .education-aside { display: grid; grid-template-columns: 1fr; }
 @media (max-width: 900px) { .education-layout { grid-template-columns: 1fr; } }
 .brand-lockup .tagline { color: var(--saffron); font-weight: 800; letter-spacing: .01em; }
+.education-accordion { display: grid; gap: 10px; }
+.education-accordion details { border: 1px solid var(--line); background: var(--paper-2); }
+.education-accordion summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; color: var(--navy); cursor: pointer; list-style: none; font: 700 17px/1.35 "Noto Serif", Georgia, serif; }
+.education-accordion summary::-webkit-details-marker { display: none; }
+.education-accordion summary svg { flex: 0 0 auto; transition: transform .2s ease; }
+.education-accordion details[open] summary svg { transform: rotate(180deg); }
+.education-accordion details[open] summary { border-bottom: 1px solid var(--line); }
+.education-accordion .education-document { padding: 18px; }
+:root[data-theme="dark"] .education-accordion summary { color: #fff; }
