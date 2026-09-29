@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Education from "./pages/Education";
+import StartupIntro from "./components/StartupIntro";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -34,6 +35,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <StartupIntro />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
