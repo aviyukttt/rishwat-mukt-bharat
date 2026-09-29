@@ -193,7 +193,7 @@ export default function Home() {
         <div className="portal-wrap brand-inner">
           <a className="brand-lockup" href="#home" onClick={event => { event.preventDefault(); jump("home"); }}>
             <img src="/logo.png" alt="" className="brand-mark" />
-            <span><strong>Rishwat Mukt Bharat</strong><small>Central bribery complaint &amp; monitoring portal · prototype</small></span>
+            <span><strong>Rishwat Mukt Bharat</strong><small className="tagline">Know your Rights, Know where to report</small><small>Central bribery complaint &amp; monitoring portal · prototype</small></span>
           </a>
           <div className="helpline"><span>Toll-free helpline</span><b>1800-000-1964</b><small>Mon–Sat · 9:00 am–6:00 pm</small></div>
           <button className="mobile-menu" type="button" aria-label="Open navigation" aria-expanded={mobileNav} onClick={() => setMobileNav(value => !value)}>{mobileNav ? <X size={20} /> : <Menu size={20} />}</button>

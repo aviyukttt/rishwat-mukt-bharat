@@ -16,7 +16,7 @@ export default function Education() {
         <div className="portal-wrap brand-inner">
           <Link className="brand-lockup" href="/">
             <img src="/logo.png" alt="" className="brand-mark" />
-            <span><strong>Rishwat Mukt Bharat</strong><small>Anti-corruption education · prototype</small></span>
+            <span><strong>Rishwat Mukt Bharat</strong><small className="tagline">Know your Rights, Know where to report</small><small>Anti-corruption education · prototype</small></span>
           </Link>
           <Link className="btn btn-outline-light" href="/"><ArrowLeft size={16} /> Back to portal</Link>
         </div>

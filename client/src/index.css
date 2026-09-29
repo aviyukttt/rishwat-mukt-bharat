@@ -298,3 +298,4 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 :root[data-theme="dark"] .education-document { color: #e8edf8; }
 .education-aside { display: grid; grid-template-columns: 1fr; }
 @media (max-width: 900px) { .education-layout { grid-template-columns: 1fr; } }
+.brand-lockup .tagline { color: var(--saffron); font-weight: 800; letter-spacing: .01em; }
