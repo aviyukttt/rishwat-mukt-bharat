@@ -8,6 +8,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { ENV } from "./_core/env";
+import { sendComplaintNotifications } from "./_core/complaintNotifications";
 
 const OTP_TTL_MS = 2 * 60 * 1000;
 const MAX_OTP_ATTEMPTS = 5;
@@ -241,7 +242,12 @@ export const appRouter = router({
       const record = { trackingId, anonymous: input.anonymous ? 1 : 0, phoneHash, agencyIndex: input.agencyIndex, agencyName: agency.bodyName, stateOrUt: input.stateOrUt, payload: JSON.stringify(input.details), status: "received" };
       const stored = await createComplaint(record);
       if (!stored) memoryComplaints.set(trackingId, { trackingId, agencyIndex: input.agencyIndex, agencyName: agency.bodyName, stateOrUt: input.stateOrUt, status: "received", createdAt: Date.now() });
-      return { trackingId, agencyName: agency.bodyName, status: "received" as const };
+      const phone = input.anonymous ? undefined : normalizePhone(input.phone ?? "");
+      const email = input.anonymous ? undefined : input.details.rmail;
+      if (phone || email) {
+        void sendComplaintNotifications({ trackingId, agencyName: agency.bodyName, phone, email }).catch(error => console.warn("[Complaint notification] Queue failed:", error));
+      }
+      return { trackingId, agencyName: agency.bodyName, status: "received" as const, notificationsQueued: Boolean(phone || email) };
     }),
     track: publicProcedure.input(z.object({ trackingId: z.string().trim().toUpperCase().min(8).max(32) })).query(async ({ input }) => {
       const memory = memoryComplaints.get(input.trackingId);
