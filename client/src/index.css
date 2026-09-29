@@ -337,3 +337,7 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 @keyframes startup-sheen { 0%, 30% { transform: translateX(-42%); opacity: 0; } 45% { opacity: .65; } 60%, 100% { transform: translateX(42%); opacity: 0; } }
 @media (max-width: 600px) { .startup-document { width: 150px; } .startup-document-wrap::after { width: 150px; } }
 @media (prefers-reduced-motion: reduce) { .startup-document-wrap::after { animation: none; opacity: 0; } }
+.startup-card { transform-style: preserve-3d; }
+.startup-document-wrap { transform-style: preserve-3d; }
+.startup-document { backface-visibility: hidden; }
+.startup-intro.is-leaving { pointer-events: none; }

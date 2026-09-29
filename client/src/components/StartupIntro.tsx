@@ -12,6 +12,7 @@ export default function StartupIntro() {
   });
   const [leaving, setLeaving] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const card = useRef<HTMLDivElement>(null);
   const documentImage = useRef<HTMLImageElement>(null);
   const eyebrow = useRef<HTMLSpanElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
@@ -45,18 +46,22 @@ export default function StartupIntro() {
       setVisible(false);
       return;
     }
-    gsap.to(root.current, { opacity: 0, scale: 1.03, duration: 0.55, ease: "power2.inOut", onComplete: () => setVisible(false) });
+    gsap.timeline({ onComplete: () => setVisible(false) })
+      .to(button.current, { scale: 0.94, duration: 0.16, ease: "power2.in" })
+      .to(documentImage.current, { rotationY: 78, rotationX: -3, x: 120, z: 70, opacity: 0.16, duration: 0.82, ease: "power3.inOut" })
+      .to(card.current, { y: -12, scale: 1.025, duration: 0.5, ease: "power2.in" }, "-=0.48")
+      .to(root.current, { opacity: 0, scale: 1.04, duration: 0.48, ease: "power2.inOut" }, "-=0.26");
   };
 
   return <div ref={root} className={`startup-intro${leaving ? " is-leaving" : ""}`} role="dialog" aria-modal="true" aria-labelledby="startup-title">
     <div className="startup-glow startup-glow-one" />
     <div className="startup-glow startup-glow-two" />
-    <div className="startup-card">
+    <div ref={card} className="startup-card">
       <div className="startup-document-wrap"><img ref={documentImage} src="/constitution-preamble.png" alt="The Preamble to the Constitution of India" className="startup-document" /></div>
       <span ref={eyebrow} className="startup-eyebrow"><ShieldCheck size={15} /> A guided path to the right authority</span>
       <h1 ref={title} id="startup-title">Rishwat Mukt Bharat</h1>
       <p ref={preamble} className="startup-preamble">Know your Rights, Know where to report</p>
-      <button ref={button} className="startup-button" type="button" onClick={enterSite}>Start a complaint <ArrowRight size={18} /></button>
+      <button ref={button} className="startup-button" type="button" onClick={enterSite} disabled={leaving}>Start a complaint <ArrowRight size={18} /></button>
       <small className="startup-footnote">Prototype portal for civic education and guided reporting</small>
     </div>
   </div>;
