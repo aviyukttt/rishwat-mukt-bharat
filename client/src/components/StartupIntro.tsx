@@ -12,7 +12,7 @@ export default function StartupIntro() {
   });
   const [leaving, setLeaving] = useState(false);
   const root = useRef<HTMLDivElement>(null);
-  const mark = useRef<HTMLImageElement>(null);
+  const documentImage = useRef<HTMLImageElement>(null);
   const eyebrow = useRef<HTMLSpanElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
   const preamble = useRef<HTMLParagraphElement>(null);
@@ -24,10 +24,10 @@ export default function StartupIntro() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
     const ctx = gsap.context(() => {
-      gsap.set([mark.current, eyebrow.current, title.current, preamble.current, button.current], { opacity: 0, y: 18 });
-      gsap.set(mark.current, { scale: 0.78, rotation: -8 });
+      gsap.set([documentImage.current, eyebrow.current, title.current, preamble.current, button.current], { opacity: 0, y: 18 });
+      gsap.set(documentImage.current, { scale: 0.92, rotationY: -12, rotationX: 5, transformPerspective: 900 });
       gsap.timeline({ defaults: { ease: "power3.out" } })
-        .to(mark.current, { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.8 })
+        .to(documentImage.current, { opacity: 1, y: 0, scale: 1, rotationY: 0, rotationX: 0, duration: 1.05 })
         .to(eyebrow.current, { opacity: 1, y: 0, duration: 0.42 }, "-=0.32")
         .to(title.current, { opacity: 1, y: 0, duration: 0.62 }, "-=0.2")
         .to(preamble.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
@@ -52,7 +52,7 @@ export default function StartupIntro() {
     <div className="startup-glow startup-glow-one" />
     <div className="startup-glow startup-glow-two" />
     <div className="startup-card">
-      <div className="startup-mark-wrap"><img ref={mark} src="/logo.png" alt="" className="startup-mark" /></div>
+      <div className="startup-document-wrap"><img ref={documentImage} src="/constitution-preamble.png" alt="The Preamble to the Constitution of India" className="startup-document" /></div>
       <span ref={eyebrow} className="startup-eyebrow"><ShieldCheck size={15} /> A guided path to the right authority</span>
       <h1 ref={title} id="startup-title">Rishwat Mukt Bharat</h1>
       <p ref={preamble} className="startup-preamble">Know your Rights, Know where to report</p>

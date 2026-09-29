@@ -331,3 +331,9 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 .startup-glow-two { right: -160px; bottom: -180px; background: #128807; }
 @media (max-width: 600px) { .startup-card { padding: 36px 20px 28px; } .startup-mark { width: 70px; height: 70px; } }
 @media (prefers-reduced-motion: reduce) { .startup-button { transition: none; } }
+.startup-document-wrap { display: grid; place-items: center; margin: -6px auto 22px; perspective: 900px; }
+.startup-document { width: min(190px, 42vw); aspect-ratio: 505 / 700; border: 5px solid rgba(243,224,190,.84); border-radius: 3px; object-fit: cover; box-shadow: 0 18px 36px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.28); transform-origin: center 72%; }
+.startup-document-wrap::after { content: ""; position: absolute; width: min(190px, 42vw); aspect-ratio: 505 / 700; border-radius: 3px; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.42) 50%, transparent 65%); mix-blend-mode: screen; pointer-events: none; animation: startup-sheen 4.8s ease-in-out 1.3s infinite; }
+@keyframes startup-sheen { 0%, 30% { transform: translateX(-42%); opacity: 0; } 45% { opacity: .65; } 60%, 100% { transform: translateX(42%); opacity: 0; } }
+@media (max-width: 600px) { .startup-document { width: 150px; } .startup-document-wrap::after { width: 150px; } }
+@media (prefers-reduced-motion: reduce) { .startup-document-wrap::after { animation: none; opacity: 0; } }
