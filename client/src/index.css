@@ -442,3 +442,42 @@ button:disabled {
   pointer-events: none;
   cursor: inherit;
 }
+
+/* Reporting step tabs: fixed hit targets, no hover movement or cursor switching. */
+.stepper button {
+  cursor: pointer;
+  transform: none !important;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  will-change: auto;
+}
+.stepper button:hover,
+.stepper button:active,
+.stepper button:focus-visible {
+  transform: none !important;
+}
+.stepper button > * {
+  pointer-events: none;
+  cursor: inherit;
+}
+
+/* Contrast mode keeps every step tab dark with readable white text. */
+:root[data-theme="dark"] .stepper button,
+:root[data-theme="dark"] .stepper button.complete,
+:root[data-theme="dark"] .stepper button.active {
+  color: #fff;
+  background: #0b0b0b;
+  border-color: #fff;
+}
+:root[data-theme="dark"] .stepper button:hover,
+:root[data-theme="dark"] .stepper button:focus-visible {
+  color: #fff;
+  background: #1a1a1a;
+  border-color: var(--saffron);
+}
+:root[data-theme="dark"] .stepper button.active {
+  border-color: var(--saffron);
+  box-shadow: inset 0 -3px 0 var(--saffron);
+}
+:root[data-theme="dark"] .stepper button.complete {
+  border-color: #fff;
+}
