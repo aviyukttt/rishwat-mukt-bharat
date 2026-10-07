@@ -428,3 +428,17 @@ button, a, select, input, textarea, summary, [role="button"] {
 @media (prefers-reduced-motion: reduce) {
   .btn, .startup-button { transition: none !important; }
 }
+
+/* Keep one stable hand cursor across the complete clickable surface. */
+button:not(:disabled), a, [role="button"], summary, .language-picker, select {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+.btn > *, .startup-button > *, .text-button > *, .stepper button > *,
+.nav-inner a > *, .mobile-menu > *, .language-picker > *,
+.education-accordion summary > * {
+  pointer-events: none;
+  cursor: inherit;
+}
