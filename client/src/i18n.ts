@@ -19,6 +19,7 @@ englishToKey.set("Anti-Corruption Laws in India: A Comprehensive Overview", "inf
 englishToKey.set("e.g. Clerk, Inspector, Tehsildar", "designationPlaceholder");
 englishToKey.set("Read safety guidance", "safetyReminder");
 englishToKey.set("Open exact official website", "openOfficial");
+englishToKey.set("Choose an Act or topic below to expand the complete information from the supplied document.", "useGuide");
 const translatedToEnglish = new Map<string, string>();
 for (const catalog of Object.values(catalogs)) {
   for (const [key, value] of Object.entries(catalog)) {
