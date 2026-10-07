@@ -396,3 +396,35 @@ h1, h2, h3, h4, h5 { font-family: "Times New Roman", Times, serif; font-weight: 
 .hero-panel-top, .hero-stat, .hero-stat-row, .hero-panel-note { transform: translateZ(12px); }
 .agency-card h3, .info-card h3, .officer-card h3, .aside-card h3, .education-card-heading { transform: translateZ(8px); }
 @media (prefers-reduced-motion: reduce) { .three-d-surface { transform: none !important; transition: none; } .three-d-surface::after { display: none; } }
+
+/* Reliable interaction layer: controls stay fixed and fully clickable. */
+button, a, select, input, textarea, summary, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn, .startup-button, .text-button, .stepper button, .nav-inner a, .mobile-menu,
+.language-picker, .education-accordion summary {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+.btn, .startup-button {
+  isolation: isolate;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.btn:focus-visible, .startup-button:focus-visible, .stepper button:focus-visible,
+.nav-inner a:focus-visible, .mobile-menu:focus-visible, .text-button:focus-visible {
+  position: relative;
+  z-index: 3;
+}
+/* Do not let a hover lift move the hit target away from the pointer. */
+.btn:hover:not(:disabled), .startup-button:hover:not(:disabled) {
+  transform: none;
+}
+.btn:active:not(:disabled), .startup-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .startup-button { transition: none !important; }
+}
