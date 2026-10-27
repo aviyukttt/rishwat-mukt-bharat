@@ -1,4 +1,4 @@
-// Preconfigured storage helpers for Manus WebDev templates
+// Preconfigured storage helpers
 // Uploads via Forge Server presigned URL to S3 (PUT direct).
 // Downloads return /manus-storage/{key} paths served via 307 redirect.
 
